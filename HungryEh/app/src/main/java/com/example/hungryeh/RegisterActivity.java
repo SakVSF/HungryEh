@@ -16,17 +16,24 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+
+
+
+
+
 
 public class RegisterActivity extends AppCompatActivity {
     private Button register;
     private EditText name;
-
+    private FirebaseAuth mAuth;
     private EditText email;
     private EditText password;
     private EditText repassword;
-    private TextView tv_notReg;
+    private TextView already_Reg;
     private FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
 
@@ -34,12 +41,13 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        firebaseAuth = FirebaseAuth.getInstance();
+
+        mAuth= FirebaseAuth.getInstance();
 
 
-        if(firebaseAuth.getCurrentUser()!=null){
+        if(mAuth.getCurrentUser()!=null){
             finish();
-            // startActivity(new Intent(getApplication(),Dashboard.class));
+            startActivity(new Intent(getApplication(),HomePageActivity.class));
         }
 
 
@@ -49,8 +57,8 @@ public class RegisterActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.et_email);
         password = (EditText)findViewById(R.id.et_password);
         repassword = (EditText) findViewById(R.id.et_repassword);
-        tv_notReg = (TextView) findViewById(R.id.tv_notReg);
-        tv_notReg.setOnClickListener(new View.OnClickListener() {
+        already_Reg = (TextView) findViewById(R.id.tv_alreadyReg);
+        already_Reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -60,13 +68,13 @@ public class RegisterActivity extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUser();
+                createAccount();
 
             }
         });
         //pd = new ProgressDialog(this);
     }
-    private void registerUser(){
+    private void createAccount(){
 
         String E_mail= email.getText().toString().trim();
         String P_assword = password.getText().toString().trim();
@@ -89,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this,"Enter Re-password",Toast.LENGTH_SHORT).show();
             return;
         }
-        if(!password.equals(Re_password))
+        if(!P_assword.equals(Re_password))
         {
             Toast.makeText(this,"Password Does Not Match",Toast.LENGTH_SHORT).show();
             //finish();
@@ -97,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        firebaseAuth.createUserWithEmailAndPassword(E_mail,P_assword)
+        mAuth.createUserWithEmailAndPassword(E_mail,P_assword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
 
@@ -107,6 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             Toast.makeText(RegisterActivity.this,"Register Success",Toast.LENGTH_SHORT).show();
                             // startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                            FirebaseUser user = mAuth.getCurrentUser();
                         }else {
                             Toast.makeText(RegisterActivity.this,"Register Failure",Toast.LENGTH_SHORT).show();
                         }

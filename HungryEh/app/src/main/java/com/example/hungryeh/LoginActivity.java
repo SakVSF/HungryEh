@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     private Button login;
@@ -31,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser()!=null){
             finish();
-            // startActivity(new Intent(getApplicationContext(),Dashboard.class));
+            startActivity(new Intent(getApplicationContext(),HomePageActivity.class));
             //prpfile activity.
         }
         login = (Button) findViewById(R.id.button_login);
@@ -45,19 +46,21 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(v == login)
                 {
-                    userLogin();
+                    signIn();
                 }
             }
         });
         textViewLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
+                if(v==textViewLogin) {
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                }
             }
         });
     }
-    private void userLogin(){
+    private void signIn(){
         String U_sername = email.getText().toString().trim();
         String P_assword = password.getText().toString().trim();
 
@@ -77,14 +80,19 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
-                        if(task.isSuccessful()){
-
+                        if (task.isSuccessful()) {
+                            Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                             finish();
-                            // startActivity(new Intent(getApplicationContext(),Dashboard.class));
+                            startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            /*updateUI(user); */
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Login Failure", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
+
+                    }});
 
 
     }
 }
+

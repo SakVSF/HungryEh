@@ -30,11 +30,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         firebaseAuth = FirebaseAuth.getInstance();
-        if(firebaseAuth.getCurrentUser()!=null){
+        /*if(firebaseAuth.getCurrentUser()!=null){
             finish();
             startActivity(new Intent(getApplicationContext(),HomePageActivity.class));
             //prpfile activity.
-        }
+        }*/
         login = (Button) findViewById(R.id.button_login);
         email = (EditText)findViewById(R.id.et_email);
         password = (EditText)findViewById(R.id.et_password);

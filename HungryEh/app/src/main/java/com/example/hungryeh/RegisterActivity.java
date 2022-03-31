@@ -45,10 +45,10 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth= FirebaseAuth.getInstance();
 
 
-        if(mAuth.getCurrentUser()!=null){
+        /*if(mAuth.getCurrentUser()!=null){
             finish();
             startActivity(new Intent(getApplication(),HomePageActivity.class));
-        }
+        }*/
 
 
         databaseReference =  FirebaseDatabase.getInstance().getReference();
@@ -91,6 +91,9 @@ public class RegisterActivity extends AppCompatActivity {
         {
             Toast.makeText(this,"Enter password",Toast.LENGTH_SHORT).show();
             return;
+        }
+        if(P_assword.length()<6){
+            Toast.makeText(this,"Password must be minimum 6 characters",Toast.LENGTH_SHORT).show();
         }
         if(TextUtils.isEmpty(Re_password))
         {

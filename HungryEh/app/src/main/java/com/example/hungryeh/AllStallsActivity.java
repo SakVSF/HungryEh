@@ -2,12 +2,11 @@ package com.example.hungryeh;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,58 +14,47 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 
 public class AllStallsActivity extends AppCompatActivity {
-    DatabaseReference rep;
-    ArrayList<Stall> list;
     RecyclerView recyclerView;
+    DatabaseReference ref;
+    MyAdapter adapter;
+    ArrayList<stall> stallList;
     SearchView searchView;
 
-
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allstalls);
-        rep = FirebaseDatabase.getInstance().getReference().child("Stall").child("Menu");
-        recyclerView = findViewById(R.id.rv);
+        recyclerView= findViewById(R.id.menulist);
+        ref= FirebaseDatabase.getInstance().getReference("Menu");
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        stallList= new ArrayList<>();
+        adapter= new MyAdapter(this, stallList);
+        recyclerView.setAdapter(adapter);
         searchView = findViewById(R.id.search);
 
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//get data inside stall object
+                for(DataSnapshot dataSnapshot: snapshot.getChildren() ){
+                    stall stalls= dataSnapshot.getValue(stall.class);
+                    stallList.add(stalls);
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (rep != null) {
-            rep.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        list = new ArrayList<>();
-                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                            list.add(ds.getValue(Stall.class));
-                        }
-                        Adapter adapter = new Adapter(list);
-                        recyclerView.setAdapter(adapter);
-
-
-                    }
 
                 }
+                adapter.notifyDataSetChanged();
 
-                @Override
-                public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
-                    Toast.makeText(AllStallsActivity.this, databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
 
-                }
-            });
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        }
-
+            }
+        });
         if (searchView!= null){
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -83,78 +71,21 @@ public class AllStallsActivity extends AppCompatActivity {
         }
 
     }
-    private void search(String s){
-        ArrayList<Stall> myStall= new ArrayList<>();
-        for (Stall object:list){
-            if(object.getAllergens().toLowerCase().contains(s.toLowerCase())){
+    private void search(String str){
+        ArrayList<stall> myStall= new ArrayList<>();
+        for (stall object:stallList){
+            if(object.getAllergens().toLowerCase().contains(str.toLowerCase())||object.getStallName().toLowerCase().contains(str.toLowerCase())||object.getDishName().toLowerCase().contains(str.toLowerCase())){
                 myStall.add(object);
 
 
             }
-            Adapter adapter = new Adapter(myStall);
-            recyclerView.setAdapter(adapter);
+
 
 
         }
+        adapter= new MyAdapter(this, myStall);
+        recyclerView.setAdapter(adapter);
     }
 }
 
 
-class Stall {
-    private String dishName;
-    private String stallName;
-    private String allergens;
-    private String veg;
-    private String price;
-
-    public Stall() {
-    }
-
-    public Stall(String dishName, String stallName, String allergens, String veg, String price) {
-        this.dishName = dishName;
-        this.stallName = stallName;
-        this.allergens = allergens;
-        this.veg = veg;
-        this.price = price;
-    }
-
-    public String getDishName() {
-        return dishName;
-    }
-
-    public void setDishName(String dishName) {
-        this.dishName = dishName;
-    }
-
-    public String getStallName() {
-        return stallName;
-    }
-
-    public void setStallName(String stallName) {
-        this.stallName = stallName;
-    }
-
-    public String getAllergens() {
-        return allergens;
-    }
-
-    public void setAllergens(String allergens) {
-        this.allergens = allergens;
-    }
-
-    public String getVeg() {
-        return veg;
-    }
-
-    public void setVeg(String veg) {
-        this.veg = veg;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-}

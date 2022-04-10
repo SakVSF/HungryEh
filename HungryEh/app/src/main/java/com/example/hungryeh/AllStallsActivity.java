@@ -6,7 +6,9 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class AllStallsActivity extends AppCompatActivity {
+public class AllStallsActivity extends AppCompatActivity implements SelectListener {
     RecyclerView recyclerView;
     DatabaseReference ref;
     MyAdapter adapter;
@@ -32,9 +34,10 @@ public class AllStallsActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         stallList= new ArrayList<>();
-        adapter= new MyAdapter(this, stallList);
+        adapter= new MyAdapter(this, stallList,this );
         recyclerView.setAdapter(adapter);
         searchView = findViewById(R.id.search);
+
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -83,8 +86,19 @@ public class AllStallsActivity extends AppCompatActivity {
 
 
         }
-        adapter= new MyAdapter(this, myStall);
+        adapter= new MyAdapter(this, myStall, this);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClicked(stall myStall) {
+        //Toast.makeText(this, "testing - " + myStall.getDishName(), Toast.LENGTH_LONG).show();
+
+        //explicit intent to foodPreview
+        Intent intent = new Intent(AllStallsActivity.this , stall_item_page_activity.class);
+        intent.putExtra("myStall_data",myStall);
+        startActivity(intent);
+
     }
 }
 

@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Git/SUTD/T4/INFO_SYST/1DAndroidAppT4/HungryEh/app/src/main/res/layout/activity_allstalls.xml" value="0.13177083333333334" />
+        <entry key="..\:/Git/SUTD/T4/INFO_SYST/1DAndroidAppT4/HungryEh/app/src/main/res/layout/activity_cart.xml" value="0.28802083333333334" />
+        <entry key="..\:/Git/SUTD/T4/INFO_SYST/1DAndroidAppT4/HungryEh/app/src/main/res/layout/activity_favourites.xml" value="0.28802083333333334" />
+        <entry key="..\:/Git/SUTD/T4/INFO_SYST/1DAndroidAppT4/HungryEh/app/src/main/res/layout/activity_homepage.xml" value="0.28802083333333334" />
+        <entry key="..\:/Git/SUTD/T4/INFO_SYST/1DAndroidAppT4/HungryEh/app/src/main/res/layout/activity_login.xml" value="0.28802083333333334" />
+        <entry key="..\:/Git/SUTD/T4/INFO_SYST/1DAndroidAppT4/HungryEh/app/src/main/res/layout/activity_main.xml" value="0.28802083333333334" />
+        <entry key="..\:/Git/SUTD/T4/INFO_SYST/1DAndroidAppT4/HungryEh/app/src/main/res/layout/activity_myorders.xml" value="0.28802083333333334" />
+        <entry key="..\:/Git/SUTD/T4/INFO_SYST/1DAndroidAppT4/HungryEh/app/src/main/res/layout/activity_payment.xml" value="0.28802083333333334" />
+        <entry key="..\:/Git/SUTD/T4/INFO_SYST/1DAndroidAppT4/HungryEh/app/src/main/res/layout/activity_register.xml" value="0.28802083333333334" />
+        <entry key="..\:/Git/SUTD/T4/INFO_SYST/1DAndroidAppT4/HungryEh/app/src/main/res/layout/activity_timings.xml" value="0.28802083333333334" />
+        <entry key="..\:/Git/SUTD/T4/INFO_SYST/1DAndroidAppT4/HungryEh/app/src/main/res/layout/cardview_hold.xml" value="0.25" />
+        <entry key="..\:/Git/SUTD/T4/INFO_SYST/1DAndroidAppT4/HungryEh/app/src/main/res/layout/items.xml" value="0.2977777777777778" />
+        <entry key="..\:/Git/SUTD/T4/INFO_SYST/1DAndroidAppT4/HungryEh/app/src/main/res/layout/itmes_activity_test_food_page.xml" value="0.28802083333333334" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

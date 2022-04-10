@@ -1,11 +1,37 @@
 package com.example.hungryeh;
 
-public class stall {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class stall implements Parcelable {
     String allergens;
     String dishName;
     String price;
     String stallName;
     String veg;
+
+    stall() {
+    }
+
+    protected stall(Parcel in) {
+        allergens = in.readString();
+        dishName = in.readString();
+        price = in.readString();
+        stallName = in.readString();
+        veg = in.readString();
+    }
+
+    public static final Creator<stall> CREATOR = new Creator<stall>() {
+        @Override
+        public stall createFromParcel(Parcel in) {
+            return new stall(in);
+        }
+
+        @Override
+        public stall[] newArray(int size) {
+            return new stall[size];
+        }
+    };
 
     public String getAllergens() {
         return allergens;
@@ -25,5 +51,19 @@ public class stall {
 
     public String getVeg() {
         return veg;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(allergens);
+        parcel.writeString(dishName);
+        parcel.writeString(price);
+        parcel.writeString(stallName);
+        parcel.writeString(veg);
     }
 }

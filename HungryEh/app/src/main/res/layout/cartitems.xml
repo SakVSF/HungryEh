@@ -29,7 +29,8 @@
                 android:text="Dish Name"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
         </LinearLayout>
 
 
@@ -38,40 +39,47 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity: "
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/quantity"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Quantity:"
+                android:layout_height="match_parent"
+                android:text="Number"
+                android:textColor="@color/black"
+                android:textSize="15sp"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Total Price: "
                 android:textColor="@color/black"
                 android:textSize="16sp" />
-        </LinearLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/totalprice"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Total Price:"
+                android:text="Number"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="15sp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -80,12 +88,19 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/timeslot"
+
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Pick-up Time:"
+                android:text="Pick-up Time: "
                 android:textColor="@color/black"
                 android:textSize="16sp" />
+            <TextView
+                android:id="@+id/timeslot"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Number"
+                android:textColor="@color/black"
+                android:textSize="15sp"/>
         </LinearLayout>
 
 

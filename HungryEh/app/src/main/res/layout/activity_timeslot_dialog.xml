@@ -21,6 +21,13 @@
             android:text="Select Collection Timeslot"
             android:textSize="20dp" />
 
+        <TextView
+            android:id="@+id/timeviewmsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Current Time:" />
+
         <NumberPicker
             android:id="@+id/timeslotPicker"
             android:layout_width="match_parent"

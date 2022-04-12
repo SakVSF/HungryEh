@@ -17,6 +17,20 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+//V2
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
+
+//V2
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 import java.util.ArrayList;
 
 public class TimeslotDialog extends AppCompatDialogFragment {
@@ -26,6 +40,12 @@ public class TimeslotDialog extends AppCompatDialogFragment {
     private Button btn_button_confirmTimeslot;
     ArrayList<String> available_timeslots;
     public String str_TimeslotSelection = "";
+
+    //V2
+    TextView time_view_msg;
+    final String node = "current_msg";
+    DatabaseReference mRootDatabaseRef;
+    DatabaseReference mNodeRef;
 
     public TimeslotDialog(){
 
@@ -38,6 +58,11 @@ public class TimeslotDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.activity_timeslot_dialog, null);
         builder.setView(view);
+
+        //V2
+        time_view_msg = view.findViewById(R.id.timeviewmsg);
+        mRootDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        mNodeRef = mRootDatabaseRef.child(node);
 
         //assume load timeslots
         available_timeslots = new ArrayList<>();
@@ -77,6 +102,34 @@ public class TimeslotDialog extends AppCompatDialogFragment {
                 dismiss();
             }
         });
+
+        mNodeRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Long timestamp = (Long) snapshot.getValue();
+                java.util.Date time=new java.util.Date((long)timestamp);
+
+
+                Date date = new Date(timestamp);
+                DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                format.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
+                String formatted = format.format(date);
+                System.out.println(formatted);
+                format.setTimeZone(TimeZone.getTimeZone("Singapore"));
+                formatted = format.format(date);
+                time_view_msg.setText("Current Date and Time: " + formatted.toString());
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        mNodeRef.setValue(ServerValue.TIMESTAMP);
+
 
         return builder.create();
 

@@ -156,6 +156,7 @@ public class stall_item_page_activity extends AppCompatActivity {
         cartMap.put("totalprice", txtvw_totalquantity*txtvw_realprice);
         cartMap.put("quantity", txtvw_totalquantity);
         cartMap.put("orderTime", txtvw_schedule_selection.getText());
+        cartMap.put("img", this.myStall.img);
 
         //db.collection('users').doc(user_id).set(cartmap)
             firestore.collection("cartItems").document(auth.getCurrentUser().getUid()).collection("Mycart").document(this.myStall.dishName).set(cartMap).addOnCompleteListener(new OnCompleteListener<Void>() {

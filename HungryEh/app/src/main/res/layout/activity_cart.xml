@@ -9,11 +9,23 @@
         android:orientation="vertical"
         tools:context=".CartActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cartlist"
+        android:layout_width="match_parent"
+        android:layout_height="544dp"
+        android:layout_margin="5dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/cartlist"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/teal_700"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="Pay"
+        />
+
     </LinearLayout>
+
+

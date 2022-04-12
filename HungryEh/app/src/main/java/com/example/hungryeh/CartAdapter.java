@@ -11,9 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
-public class CartAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     Context context;
     ArrayList<CartItem> cartItem;
@@ -25,9 +27,9 @@ public class CartAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @NonNull
     @Override
-    public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CartAdapter.CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.cartitems, parent, false);
-        return new MyAdapter.MyViewHolder(v);
+        return new CartViewHolder(v);
     }
 
     @Override
@@ -36,9 +38,15 @@ public class CartAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CartAdapter.CartViewHolder holder, int position) {
         CartItem fooditem = cartItem.get(position);
-        holder.dishName.setText(fooditem.dishName);
+        holder.dishName.setText(fooditem.getDishName());
+        holder.quantity.setText(fooditem.getQuantity());
+        holder.orderTime.setText(fooditem.getOrderTime());
+        holder.totalPrice.setText(String.valueOf(fooditem.getTotalPrice()));
+
+        Glide.with(context).load(fooditem.getImg()).into(holder.foodImg);
+
     }
 
     public static class CartViewHolder extends RecyclerView.ViewHolder{

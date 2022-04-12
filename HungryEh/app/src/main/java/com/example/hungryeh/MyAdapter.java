@@ -5,6 +5,7 @@ package com.example.hungryeh;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -48,6 +51,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.dishName.setText(stallh.getDishName());
         holder.allergy.setText(stallh.getAllergens());
         holder.stall.setText(stallh.getStallName());
+        holder.pricing.setText(stallh.getPrice());
+        holder.veggie.setText(stallh.getVeg());
+
+        Glide.with(context).load(stallh.getImg()).into(holder.images);
+
 
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +75,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView dishName,allergy,stall;
+        TextView dishName,allergy,stall,pricing,veggie;
+        ImageView images;
+
         public CardView cardView;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -75,6 +85,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             dishName= itemView.findViewById(R.id.dish);
             allergy= itemView.findViewById(R.id.allergens);
             stall= itemView.findViewById(R.id.stall);
+            images= itemView.findViewById(R.id.imagev);
+            pricing=itemView.findViewById(R.id.pricing);
+            veggie= itemView.findViewById(R.id.veggie);
             cardView = itemView.findViewById(R.id.main_container);
 
         }

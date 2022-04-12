@@ -16,7 +16,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="foodpage_dish"
-    />
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+
+
+        />
 
     <TextView
         android:id="@+id/foodpage_stall"
@@ -25,6 +30,89 @@
         android:layout_weight="1"
         android:text="foodpage_stall"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="     "
+        />
+
+    <ImageView
+        android:id="@+id/imagein"
+        android:layout_width="395dp"
+        android:layout_height="335dp"
+        tools:src="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="     "
+        />
+
+    <TextView
+        android:id="@+id/cost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Price"
+        android:layout_marginLeft="17dp"
+        android:fontFamily="sans-serif-black"
+        android:textStyle="italic"
+        />
+
+    <TextView
+        android:id="@+id/ind_allergens"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="17dp"
+        android:text="Allergens"
+        />
+
+    <TextView
+        android:id="@+id/ind_veg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="17dp"
+        android:text="Veg"
+        />
+
+
+    <TextView
+        android:id="@+id/fav1"
+        android:layout_width="387dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:text="Add To Favourites"
+        android:layout_marginLeft="270dp"
+        android:layout_marginRight="50dp"
+        android:fontFamily="sans-serif-black"
+        android:textStyle="bold|italic"
+        android:textColor="@color/purple_700"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_favorite_border_24"
+        android:layout_marginLeft="350dp"
+        android:background="@android:color/transparent"
+        android:id="@+id/fav"
+        android:padding="2dp">
+
+    </ImageView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="     "
+        />
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,25 +120,28 @@
         android:orientation="vertical">
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="2dp"
             android:background="@android:color/darker_gray"/>
+
         <LinearLayout
 
             android:paddingTop="0dp"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:paddingBottom="4dp"
-
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:text="Preorder Time"
+                android:textColor="@color/teal_700"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="25dp"
                 />
+
+
             <TextView
                 android:text="Choose Your Collection Time Slot"
                 android:layout_width="match_parent"
@@ -82,7 +173,7 @@
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                 />
+                />
 
 
         </LinearLayout>
@@ -92,6 +183,7 @@
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
     </LinearLayout>
+
 
 
 

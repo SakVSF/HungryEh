@@ -45,7 +45,7 @@ public class HomePageActivity extends AppCompatActivity {
                         Intent intent = new Intent(HomePageActivity.this, PaymentActivity.class);
                         startActivity(intent);
                     } else if (finalI == 5) {
-                        Intent intent = new Intent(HomePageActivity.this, TimingsActivity.class);
+                        Intent intent = new Intent(HomePageActivity.this, LogoutActivity.class);
                         startActivity(intent);
                     }
 

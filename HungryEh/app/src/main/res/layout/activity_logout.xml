@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/startingpic"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="50dp"
+    android:paddingTop="200dp"
+    android:paddingRight="50dp"
+    android:paddingBottom="50dp"
+
+    tools:context=".LogoutActivity">
+
+    <TextView
+        android:id="@+id/sure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/sure_logout"
+        android:textColor="#009688"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonyes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/sure"
+        android:text="@string/yes"
+        android:textSize="10sp"
+        android:translationX="100dp"
+        android:translationY="30dp" />
+
+    <Button
+        android:id="@+id/buttonno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/sure"
+        android:text="@string/no"
+        android:textSize="10sp"
+        android:translationX="-100dp"
+        android:translationY="30dp" />
+</RelativeLayout>

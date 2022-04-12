@@ -1,20 +1,21 @@
 package com.example.hungryeh;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,8 @@ public class AllStallsActivity extends AppCompatActivity implements SelectListen
     MyAdapter adapter;
     ArrayList<stall> stallList;
     SearchView searchView;
+    StorageReference rep;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,7 @@ public class AllStallsActivity extends AppCompatActivity implements SelectListen
         setContentView(R.layout.activity_allstalls);
         recyclerView= findViewById(R.id.menulist);
         ref= FirebaseDatabase.getInstance().getReference("Menu");
+        rep= FirebaseStorage.getInstance().getReference();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         stallList= new ArrayList<>();
@@ -77,9 +81,8 @@ public class AllStallsActivity extends AppCompatActivity implements SelectListen
     private void search(String str){
         ArrayList<stall> myStall= new ArrayList<>();
         for (stall object:stallList){
-            if(object.getAllergens().toLowerCase().contains(str.toLowerCase())||object.getStallName().toLowerCase().contains(str.toLowerCase())||object.getDishName().toLowerCase().contains(str.toLowerCase())){
+            if(object.getAllergens().toLowerCase().contains(str.toLowerCase())||object.getStallName().toLowerCase().contains(str.toLowerCase())||object.getDishName().toLowerCase().contains(str.toLowerCase())||object.getVeg().toLowerCase().contains(str.toLowerCase())){
                 myStall.add(object);
-
 
             }
 
@@ -101,5 +104,7 @@ public class AllStallsActivity extends AppCompatActivity implements SelectListen
 
     }
 }
+
+
 
 

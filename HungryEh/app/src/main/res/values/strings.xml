@@ -28,8 +28,12 @@
     <string name="history">History</string>
     <string name="favourites">Favourites</string>
     <string name="my_orders">My Orders</string>
-    <string name="timings">Timings</string>
+    <string name="logout">Logout</string>
     <string name="payment">Payment</string>
+    <string name="confirm_logout">Confirm Logout?</string>
+    <string name="sure_logout">Are you sure you want to logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 
 </resources>

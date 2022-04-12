@@ -10,6 +10,7 @@ public class stall implements Parcelable {
     String stallName;
     String veg;
     String img;
+    double pricen;
 
 
     stall() {
@@ -22,6 +23,7 @@ public class stall implements Parcelable {
         stallName = in.readString();
         veg = in.readString();
         img= in.readString();
+        pricen = in.readDouble();
     }
 
     public static final Creator<stall> CREATOR = new Creator<stall>() {
@@ -60,6 +62,8 @@ public class stall implements Parcelable {
         return img;
     }
 
+    public double getPricen(){ return pricen;}
+
     @Override
     public int describeContents() {
         return 0;
@@ -73,5 +77,6 @@ public class stall implements Parcelable {
         parcel.writeString(stallName);
         parcel.writeString(veg);
         parcel.writeString(img);
+        parcel.writeDouble(pricen);
     }
 }

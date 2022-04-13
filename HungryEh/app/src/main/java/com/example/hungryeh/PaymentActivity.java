@@ -3,6 +3,7 @@ package com.example.hungryeh;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -148,6 +149,8 @@ public class PaymentActivity extends AppCompatActivity {
 //                        }
                         else{
                             Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PaymentActivity.this, HomePageActivity.class));
+                            updateCart();
                         }
                     }
 
@@ -208,9 +211,11 @@ public class PaymentActivity extends AppCompatActivity {
 
     // Set phone number
 
+
+    public void updateCart(){
+        firestore.collection("cartItems").document(auth.getCurrentUser().getUid()).delete();
+    }
     //Set Credi Card
-
-
     double RoundTo2Decimals(double val) {
 //        DecimalFormat df2 = new DecimalFormat("###.##");
 //        return Double.valueOf(df2.format(val));

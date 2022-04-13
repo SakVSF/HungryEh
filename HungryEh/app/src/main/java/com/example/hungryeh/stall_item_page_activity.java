@@ -163,6 +163,7 @@ public class stall_item_page_activity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Toast.makeText(stall_item_page_activity.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(stall_item_page_activity.this, HomePageActivity.class));
                 }
             });
     }

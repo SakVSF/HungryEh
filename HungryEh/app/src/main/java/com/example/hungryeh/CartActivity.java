@@ -29,6 +29,7 @@ public class CartActivity extends AppCompatActivity {
     FirebaseFirestore firestore;
     FirebaseAuth auth;
     Button paynow;
+    private double OverallTotalPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +50,43 @@ public class CartActivity extends AppCompatActivity {
         recyclerView.setAdapter(cartAdapter);
         EventChangeListener();
 
+
         paynow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(CartActivity.this, PaymentActivity.class));
             }
         });
+    }
+
+    private void getCartDetails(){
+        firestore.collection("cartItems").document(auth.getCurrentUser().getUid()).collection("Mycart").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.e("Firestore error", error.getMessage());
+                    return;
+                }
+                for(DocumentChange dc: value.getDocumentChanges()){
+                    if (dc.getType() == DocumentChange.Type.ADDED){
+                        cartItem.add(dc.getDocument().toObject(CartItem.class));
+                    }
+                }
+
+            }
+        });
+
+    }
+
+    private void initializePaymentPage() {
+        //logic to see if there is any cartitem
+
+        //if cartitem has 1 or more item then calculate total
+        OverallTotalPrice = 0;
+        for ( CartItem item : cartItem ) {
+            OverallTotalPrice += item.totalprice;
+        }
+        paynow.setText("Pay $"+String.format("%.2f",OverallTotalPrice) + " Now");
     }
 
     private void EventChangeListener() {
@@ -70,6 +102,7 @@ public class CartActivity extends AppCompatActivity {
                        cartItem.add(dc.getDocument().toObject(CartItem.class));
                    }
                    cartAdapter.notifyDataSetChanged();
+
                }
 
 

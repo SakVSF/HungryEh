@@ -13,7 +13,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="140dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="120dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -114,14 +115,15 @@
         android:layout_height="105dp"
         tools:src="@mipmap/ic_launcher_round" />
 
-    <ImageButton
+    <Button
         android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="300dp"
         android:background="@color/teal_700"
-        tools:src="@drawable/ic_baseline_close_whitw" />
+        android:text="X"
+        android:textColor="@color/white"/>
 
 </androidx.cardview.widget.CardView>
 

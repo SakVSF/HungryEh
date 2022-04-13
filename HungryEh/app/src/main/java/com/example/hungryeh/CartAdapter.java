@@ -44,7 +44,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.dishName.setText(fooditem.getDishName());
         holder.quantity.setText(String.valueOf(fooditem.getQuantity()));
         holder.orderTime.setText(fooditem.getOrderTime());
-        holder.totalPrice.setText(String.valueOf(fooditem.getTotalPrice()));
+        holder.totalPrice.setText(String.format("%.2f",fooditem.getTotalPrice()));
 
         Glide.with(context).load(fooditem.getImg()).into(holder.foodImg);
 

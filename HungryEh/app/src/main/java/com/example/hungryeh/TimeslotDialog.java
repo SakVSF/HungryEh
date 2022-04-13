@@ -42,7 +42,7 @@ public class TimeslotDialog extends AppCompatDialogFragment {
     ArrayList<String> available_timeslots;
     public String str_TimeslotSelection = "";
     public String time_formatted;
-
+    OnDataPass dataPasser;
 
 
     //V2
@@ -55,6 +55,16 @@ public class TimeslotDialog extends AppCompatDialogFragment {
 
     public TimeslotDialog(){
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        dataPasser = (OnDataPass) context;
+    }
+
+    public void passData(String data) {
+        dataPasser.onDataPass(data);
     }
 
     @Override
@@ -143,10 +153,12 @@ public class TimeslotDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(View view) {
                         // str_TimeslotSelection
-                        Intent intent = new Intent(view.getContext() , stall_item_page_activity.class);
-                        intent.putExtra("str_TimeslotSelection",str_TimeslotSelection);
+//                        Intent intent = new Intent(view.getContext() , stall_item_page_activity.class);
+//                        intent.putExtra("str_TimeslotSelection",str_TimeslotSelection);
                         //stall_item_page_activity
-                        startActivity(intent);
+                        //startActivity(intent);
+                        //((stall_item_page_activity)getActivity()).setT("test");
+                        passData(str_TimeslotSelection);
                         dismiss();
                     }
                 });

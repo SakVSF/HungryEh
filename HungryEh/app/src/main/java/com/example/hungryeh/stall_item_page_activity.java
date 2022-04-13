@@ -24,7 +24,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
-public class stall_item_page_activity extends AppCompatActivity {
+public class stall_item_page_activity extends AppCompatActivity implements OnDataPass {
     TextView txtvw_quantity;
     int txtvw_totalquantity = 1;
     stall myStall;
@@ -235,4 +235,14 @@ public class stall_item_page_activity extends AppCompatActivity {
         timeslotDialog.show(getSupportFragmentManager(),"Timeslot Dialog");
     }
 
+    @Override
+    public void onDataPass(String data) {
+        String str_TimeslotSelection_value = data;
+        if( str_TimeslotSelection_value != null & str_TimeslotSelection_value != ""){
+            this.str_TimeslotSelection = str_TimeslotSelection_value;
+            txtvw_schedule_selection = findViewById(R.id.schedule_selection);
+            txtvw_schedule_selection.setText(str_TimeslotSelection);
+            //Toast.makeText(this, "testing - " + str_TimeslotSelection, Toast.LENGTH_SHORT).show();
+        }
+    }
 }

@@ -5,6 +5,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -57,6 +58,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         TextView dishName;
         TextView orderTime;
         ImageView foodImg;
+        ImageButton delete;
 
 
         public CartViewHolder(@NonNull View itemView) {
@@ -66,6 +68,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             totalPrice = itemView.findViewById(R.id.totalprice);
             orderTime = itemView.findViewById(R.id.timeslot);
             foodImg = itemView.findViewById(R.id.imagecart);
+            delete = itemView.findViewById(R.id.delete);
 
 
         }

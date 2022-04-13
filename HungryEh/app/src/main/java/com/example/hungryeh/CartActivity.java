@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentChange;
@@ -25,6 +28,8 @@ public class CartActivity extends AppCompatActivity {
     CartAdapter cartAdapter;
     FirebaseFirestore firestore;
     FirebaseAuth auth;
+    Button paynow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +39,8 @@ public class CartActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        paynow = findViewById(R.id.paynow);
+
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         cartItem = new ArrayList<CartItem>();
@@ -41,6 +48,13 @@ public class CartActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(cartAdapter);
         EventChangeListener();
+
+        paynow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CartActivity.this, PaymentActivity.class));
+            }
+        });
     }
 
     private void EventChangeListener() {

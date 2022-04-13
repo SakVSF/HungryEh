@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -41,11 +42,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public void onBindViewHolder(@NonNull CartAdapter.CartViewHolder holder, int position) {
         CartItem fooditem = cartItem.get(position);
         holder.dishName.setText(fooditem.getDishName());
-        holder.quantity.setText(fooditem.getQuantity());
+        holder.quantity.setText(String.valueOf(fooditem.getQuantity()));
         holder.orderTime.setText(fooditem.getOrderTime());
-        holder.totalPrice.setText(String.valueOf(fooditem.getTotalPrice()));
+        holder.totalPrice.setText(String.valueOf(Math.ceil(fooditem.getTotalPrice())));
 
         Glide.with(context).load(fooditem.getImg()).into(holder.foodImg);
+
 
     }
 
@@ -56,6 +58,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         TextView orderTime;
         ImageView foodImg;
 
+
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             dishName = itemView.findViewById(R.id.dishname);
@@ -63,6 +66,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             totalPrice = itemView.findViewById(R.id.totalprice);
             orderTime = itemView.findViewById(R.id.timeslot);
             foodImg = itemView.findViewById(R.id.imagecart);
+
 
         }
     }

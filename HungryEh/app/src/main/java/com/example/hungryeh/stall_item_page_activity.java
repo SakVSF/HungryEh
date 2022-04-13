@@ -17,12 +17,9 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.w3c.dom.Text;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -35,6 +32,7 @@ public class stall_item_page_activity extends AppCompatActivity {
     TextView textView;
     NumberPicker numberPicker;
     TextView txtvw_schedule_selection;
+    TextView addtofav;
     View addToCart;
     FirebaseFirestore firestore;
     FirebaseAuth auth;
@@ -73,6 +71,7 @@ public class stall_item_page_activity extends AppCompatActivity {
         TextView txtvw_foodpage_price= findViewById(R.id.cost);
         TextView txtvw_foodpage_allergens = findViewById(R.id.ind_allergens);
         TextView txtvw_foodpage_veg = findViewById(R.id.ind_veg);
+        TextView txtvw_addtofav = findViewById(R.id.favtext);
         Button txtvw_addtocart = findViewById(R.id.addtocartbutton);
         Button txtvw_increasequantity = findViewById(R.id.increasequantity);
         Button txtvw_decreasequantity = findViewById(R.id.reducequantity);
@@ -101,6 +100,14 @@ public class stall_item_page_activity extends AppCompatActivity {
         txtvw_foodpage_price.setText(this.myStall.price);
         txtvw_foodpage_allergens.setText(this.myStall.allergens);
         txtvw_foodpage_veg.setText(this.myStall.veg);
+
+        txtvw_addtofav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addtoFav();
+            }
+        });
+
 
         txtvw_addtocart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,6 +157,20 @@ public class stall_item_page_activity extends AppCompatActivity {
 
     }
 
+    private void addtoFav() {
+        final HashMap<String, Object> favMap = new HashMap<>();
+        favMap.put("dishName",this.myStall.dishName);
+
+        favMap.put("img", this.myStall.img);
+
+        //db.collection('users').doc(user_id).set(cartmap)
+        firestore.collection("favItems").document(auth.getCurrentUser().getUid()).collection("Favourites").document(this.myStall.dishName).set(favMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(stall_item_page_activity.this, "Added to Favourites", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void addToCart() {
         final HashMap<String, Object> cartMap = new HashMap<>();
         cartMap.put("dishName",this.myStall.dishName);

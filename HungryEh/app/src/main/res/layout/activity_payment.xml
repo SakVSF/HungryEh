@@ -6,4 +6,207 @@
     android:layout_height="match_parent"
     tools:context=".PaymentActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_payment_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="4"
+            android:text="Payment"
+            android:textSize="32dp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_total_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_payment_total_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="0dp"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:paddingRight="0dp"
+                android:text="Total Cost $" />
+
+            <TextView
+                android:id="@+id/tv_payment_total_cost_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:paddingLeft="0dp"
+                android:text="" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:textSize="16dp"
+            android:text="Payment mode:" />
+
+        <RadioGroup
+            android:id="@+id/rbg_pay_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="10dp"
+            tools:layout_editor_absoluteX="6dp"
+            tools:layout_editor_absoluteY="42dp">
+
+            <RadioButton
+                android:id="@+id/rb_paylah"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Paylah" />
+
+            <RadioButton
+                android:id="@+id/rb_creditcard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CreditCard" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_paylah"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_paylah_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="4"
+                android:text="Paylah Phone Number" />
+
+            <EditText
+                android:id="@+id/et_paylah_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:ems="10"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:maxLength="8"
+                android:inputType="phone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_creditcard"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_creditcard_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="4"
+                android:text="Credit Card Holder's Name" />
+
+            <EditText
+                android:id="@+id/et_creditcard_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:ems="10"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="164dp" />
+
+            <TextView
+                android:id="@+id/tv_creditcard_number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="4"
+                android:text="Credit Card Number" />
+
+            <EditText
+                android:id="@+id/et_creditcard_number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:ems="10"
+                android:inputType="number"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:maxLength="16"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="164dp" />
+
+            <TextView
+                android:id="@+id/tv_creditcard_security"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="4"
+                android:text="Credit Card Security Code" />
+
+            <EditText
+                android:id="@+id/et_creditcard_security"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:ems="10"
+                android:inputType="number"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:maxLength="3"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="164dp" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_payment_order"
+            android:enabled="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="ORDER"
+            tools:ignore="MissingConstraints" />
+
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

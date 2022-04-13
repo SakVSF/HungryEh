@@ -3,11 +3,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:paddingLeft="4dp"
-    android:paddingRight="4dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:translationY="5dp"
     tools:context=".stall_item_page_activity">
 
     <TextView
@@ -16,12 +17,12 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="foodpage_dish"
-        android:textStyle="bold"
-        android:textSize="20sp"
         android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
 
 
-        />
+        android:translationY="5dp" />
 
     <TextView
         android:id="@+id/foodpage_stall"
@@ -29,87 +30,73 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="foodpage_stall"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="     "
-        />
+        android:translationY="20dp" />
+
 
     <ImageView
         android:id="@+id/imagein"
         android:layout_width="395dp"
         android:layout_height="335dp"
+        android:cropToPadding="true"
+        android:translationY="35dp"
         tools:src="@mipmap/ic_launcher_round" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="     "
-        />
 
     <TextView
         android:id="@+id/cost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Price"
         android:layout_marginLeft="17dp"
+        android:layout_weight="1"
         android:fontFamily="sans-serif-black"
+        android:text="Price"
         android:textStyle="italic"
-        />
+        android:translationY="50dp"/>
 
     <TextView
         android:id="@+id/ind_allergens"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_marginLeft="17dp"
+        android:layout_weight="1"
         android:text="Allergens"
-        />
+        android:translationY="50dp"/>
 
     <TextView
         android:id="@+id/ind_veg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_marginLeft="17dp"
+        android:layout_weight="1"
         android:text="Veg"
-        />
+        android:translationY="50dp"/>
 
 
     <TextView
-        android:id="@+id/fav1"
+        android:id="@+id/favtext"
         android:layout_width="387dp"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:gravity="center_vertical"
-        android:text="Add To Favourites"
         android:layout_marginLeft="270dp"
         android:layout_marginRight="50dp"
+        android:clickable="true"
         android:fontFamily="sans-serif-black"
+        android:gravity="center_vertical"
+        android:text="Add To Favourites"
+        android:textColor="@color/teal_700"
         android:textStyle="bold|italic"
-        android:textColor="@color/purple_700"/>
+        android:translationY="-10dp" />
 
     <ImageView
+        android:id="@+id/favimage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_favorite_border_24"
-        android:layout_marginLeft="350dp"
+        android:layout_marginLeft="300dp"
         android:background="@android:color/transparent"
-        android:id="@+id/fav"
-        android:padding="2dp">
+        android:padding="2dp"
+        android:src="@drawable/ic_baseline_favorite_border_24"
+        android:translationY="-10dp">
 
     </ImageView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="     "
-        />
 
 
 
@@ -118,34 +105,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray"
+            android:translationY="10dp"/>
 
         <LinearLayout
 
-            android:paddingTop="0dp"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:paddingBottom="4dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="4dp"
+            android:paddingTop="0dp"
+            android:paddingRight="4dp"
+            android:paddingBottom="4dp"
+            android:translationY="10dp">
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
                 android:text="Preorder Time"
                 android:textColor="@color/teal_700"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:textSize="25dp"
-                />
+                android:translationY="10dp"/>
 
 
             <TextView
-                android:text="Choose Your Collection Time Slot"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:text="Choose Your Collection Time Slot"
+                android:translationY="-19dp"/>
 
         </LinearLayout>
 
@@ -153,38 +144,100 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray" />
+
 
         <LinearLayout
-            android:visibility="visible"
-            android:paddingTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="81dp"
+            android:orientation="horizontal"
             android:paddingLeft="16dp"
+            android:paddingTop="8dp"
             android:paddingRight="16dp"
             android:paddingBottom="8dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:translationY="2dp"
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/schedule_selection"
-                android:drawableLeft="@drawable/ic_baseline_schedule_24"
-                android:text="Select a time"
-                android:clickable="true"
-                android:gravity="center_vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                />
+                android:layout_height="94dp"
+                android:clickable="true"
+                android:drawableLeft="@drawable/ic_baseline_schedule_24"
+                android:gravity="center_vertical"
+
+                android:text="Select a time"
+                android:translationY="-35dp" />
 
 
         </LinearLayout>
 
-        <View
+        <LinearLayout
+            android:id="@+id/elegantbutton"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/reducequantity"
+                android:layout_width="52dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="-"
+                android:textColor="@color/white"
+                android:background="@color/teal_700"
+                android:textSize="27dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:translationY="-10dp"
+                />
+
+            <TextView
+                android:id="@+id/quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+
+                android:textColor="@color/teal_700"
+                android:textSize="30dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="5dp"
+                android:translationY="-5dp"/>
+
+            <Button
+                android:id="@+id/increasequantity"
+                android:layout_width="52dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:background="@color/teal_700"
+                android:text="+"
+                android:textSize="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:translationY="-10dp"/>
+
+            <Button
+                android:id="@+id/addtocartbutton"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginLeft="105dp"
+                android:layout_marginBottom="0dp"
+                android:background="@color/teal_700"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="Add to Cart" />
+            ...
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:translationY="20dp"
+                android:background="@android:color/darker_gray" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
-
-
-
-
 </LinearLayout>

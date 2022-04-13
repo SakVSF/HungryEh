@@ -4,17 +4,17 @@ public class CartItem {
         String dishName;
         String img;
         int quantity;
-        double totalPrice;
+        double totalprice;
         String orderTime;
 
         public CartItem() {
         }
 
-        public CartItem(String dishName, String img, int quantity, double totalPrice, String orderTime) {
+        public CartItem(String dishName, String img, int quantity, double totalprice, String orderTime) {
             this.dishName = dishName;
             this.img = img;
             this.quantity = quantity;
-            this.totalPrice = totalPrice;
+            this.totalprice = totalprice;
             this.orderTime = orderTime;
         }
 
@@ -31,7 +31,7 @@ public class CartItem {
         }
 
         public double getTotalPrice() {
-            return totalPrice;
+            return totalprice;
         }
 
         public String getOrderTime() {
@@ -50,8 +50,8 @@ public class CartItem {
             this.quantity = quantity;
         }
 
-        public void setTotalPrice(double totalPrice) {
-            this.totalPrice = totalPrice;
+        public void setTotalPrice(double totalprice) {
+            this.totalprice = totalprice;
         }
 
         public void setOrderTime(String orderTime) {

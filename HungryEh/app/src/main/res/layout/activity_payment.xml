@@ -25,15 +25,39 @@
             android:text="Payment"
             android:textSize="32dp" />
 
-        <TextView
-            android:id="@+id/tv_payment_total_cost"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/linearLayout_total_cost"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:textSize="20dp"
-            android:text="Total Cost" />
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_payment_total_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="0dp"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:paddingRight="0dp"
+                android:text="Total Cost $" />
+
+            <TextView
+                android:id="@+id/tv_payment_total_cost_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:paddingLeft="0dp"
+                android:text="" />
+
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="match_parent"
@@ -89,6 +113,9 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:ems="10"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:maxLength="8"
                 android:inputType="phone" />
 
         </LinearLayout>
@@ -116,7 +143,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:ems="10"
-                android:inputType="number"
                 tools:layout_editor_absoluteX="1dp"
                 tools:layout_editor_absoluteY="164dp" />
 
@@ -137,6 +163,9 @@
                 android:layout_marginRight="10dp"
                 android:ems="10"
                 android:inputType="number"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:maxLength="16"
                 tools:layout_editor_absoluteX="1dp"
                 tools:layout_editor_absoluteY="164dp" />
 
@@ -157,6 +186,9 @@
                 android:layout_marginRight="10dp"
                 android:ems="10"
                 android:inputType="number"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:maxLength="3"
                 tools:layout_editor_absoluteX="1dp"
                 tools:layout_editor_absoluteY="164dp" />
 

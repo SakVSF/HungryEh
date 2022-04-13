@@ -5,6 +5,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,6 +15,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -21,6 +24,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     Context context;
     ArrayList<CartItem> cartItem;
+
 
     public CartAdapter(Context context, ArrayList<CartItem> cartItem) {
         this.context = context;
@@ -31,7 +35,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @Override
     public CartAdapter.CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.cartitems, parent, false);
-        return new CartViewHolder(v);
+        return new CartViewHolder(v).linkAdapter(this);
     }
 
     @Override
@@ -58,7 +62,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         TextView dishName;
         TextView orderTime;
         ImageView foodImg;
-        ImageButton delete;
+        Button delete;
+        private CartAdapter adapter;
+        FirebaseFirestore firestore;
+        FirebaseAuth auth;
 
 
         public CartViewHolder(@NonNull View itemView) {
@@ -70,7 +77,24 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             foodImg = itemView.findViewById(R.id.imagecart);
             delete = itemView.findViewById(R.id.delete);
 
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    firestore = FirebaseFirestore.getInstance();
+                    auth = FirebaseAuth.getInstance();
+                    adapter.cartItem.remove(getAdapterPosition());
+                    updateCart();
+                }
+            });
+        }
 
+        public void updateCart(){
+            firestore.collection("cartItems").document(auth.getCurrentUser().getUid()).collection("Mycart").document(dishName.getText().toString()).delete();
+        }
+
+        public CartViewHolder linkAdapter(CartAdapter adapter){
+            this.adapter = adapter;
+            return this;
         }
     }
 }

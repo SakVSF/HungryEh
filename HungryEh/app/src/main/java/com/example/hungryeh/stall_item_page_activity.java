@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +25,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
-public class stall_item_page_activity extends AppCompatActivity {
+public class stall_item_page_activity extends AppCompatActivity implements OnDataPass {
     TextView txtvw_quantity;
     int txtvw_totalquantity = 1;
     stall myStall;
@@ -37,6 +38,7 @@ public class stall_item_page_activity extends AppCompatActivity {
     FirebaseFirestore firestore;
     FirebaseAuth auth;
     double txtvw_realprice;
+    LinearLayout ll_preorder_time_linear_layout;
 
     public stall_item_page_activity(){
 
@@ -78,6 +80,7 @@ public class stall_item_page_activity extends AppCompatActivity {
         txtvw_quantity = findViewById(R.id.quantity);
         txtvw_schedule_selection = findViewById(R.id.schedule_selection);
         txtvw_realprice = this.myStall.pricen;
+        ll_preorder_time_linear_layout = findViewById(R.id.preorder_time_linear_layout);
 
 
 /*
@@ -142,14 +145,24 @@ public class stall_item_page_activity extends AppCompatActivity {
         });
 
 
-
-        txtvw_schedule_selection.setOnClickListener(new View.OnClickListener() {
+        //old: txtvw_schedule_selection
+        //new: ll_preorder_time_linear_layout
+        ll_preorder_time_linear_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 openDialog();}
 
         }
+        );
+
+        txtvw_schedule_selection.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+
+                  openDialog();}
+
+            }
         );
 
 
@@ -235,4 +248,14 @@ public class stall_item_page_activity extends AppCompatActivity {
         timeslotDialog.show(getSupportFragmentManager(),"Timeslot Dialog");
     }
 
+    @Override
+    public void onDataPass(String data) {
+        String str_TimeslotSelection_value = data;
+        if( str_TimeslotSelection_value != null & str_TimeslotSelection_value != ""){
+            this.str_TimeslotSelection = str_TimeslotSelection_value;
+            txtvw_schedule_selection = findViewById(R.id.schedule_selection);
+            txtvw_schedule_selection.setText(str_TimeslotSelection);
+            //Toast.makeText(this, "testing - " + str_TimeslotSelection, Toast.LENGTH_SHORT).show();
+        }
+    }
 }

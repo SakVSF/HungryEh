@@ -1,5 +1,8 @@
 package com.example.hungryeh;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,15 +18,33 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.type.DateTime;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class PaymentActivity extends AppCompatActivity {
 
@@ -46,7 +67,8 @@ public class PaymentActivity extends AppCompatActivity {
     EditText et_creditcard_name;
     TextView tv_creditcard_number;
     EditText et_creditcard_number;
-
+    TextView tv_creditcard_security;
+    EditText et_creditcard_security;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +94,29 @@ public class PaymentActivity extends AppCompatActivity {
         et_creditcard_name = findViewById(R.id.et_creditcard_name);
         tv_creditcard_number = findViewById(R.id.tv_creditcard_number);
         et_creditcard_number = findViewById(R.id.et_creditcard_number);
+        tv_creditcard_security = findViewById(R.id.tv_creditcard_security);
+        et_creditcard_security = findViewById(R.id.et_creditcard_security);
 
         //Retrieve Database
         getCartDetails();
+
+        firestore.collection("cartItems").document(auth.getCurrentUser().getUid()).collection("Mycart").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.e("Firestore error", error.getMessage());
+                    return;
+                }
+                for(DocumentChange dc: value.getDocumentChanges()){
+                    if (dc.getType() == DocumentChange.Type.ADDED){
+                        cartItem.add(dc.getDocument().toObject(CartItem.class));
+                    }
+                    //cartAdapter.notifyDataSetChanged();
+                }
+
+
+            }
+        });
 
 
         rbg_pay_mode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
@@ -136,7 +178,6 @@ public class PaymentActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(btn_payment_order.isEnabled()){
 
-
                     if(rb_paylah.isChecked()){
 
                         //check if phone is valid number of digits
@@ -148,7 +189,10 @@ public class PaymentActivity extends AppCompatActivity {
 //                            Toast.makeText(getApplicationContext(),"Invalid Phone Number",Toast.LENGTH_SHORT).show();
 //                        }
                         else{
-                            Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
+                            et_creditcard_name.setText("");
+                            et_creditcard_number.setText("");
+                            et_creditcard_security.setText("");
+                            submit_order_to_db();
                             startActivity(new Intent(PaymentActivity.this, HomePageActivity.class));
                             updateCart();
                         }
@@ -162,16 +206,37 @@ public class PaymentActivity extends AppCompatActivity {
                         else if( et_creditcard_number.getText().toString().trim().length() < 16){
                             Toast.makeText(getApplicationContext(),"Invalid Credit Card Number",Toast.LENGTH_SHORT).show();
                         }
-                        else if( et_creditcard_number.getText().toString().trim().length() < 3){
+                        else if( et_creditcard_security.getText().toString().trim().length() < 3){
                             Toast.makeText(getApplicationContext(),"Invalid Credit Card Security Code",Toast.LENGTH_SHORT).show();
                         }
                         else{
-                            Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_SHORT).show();
+                            et_paylah_phone.setText("");
+                            submit_order_to_db();
                         }
                     }
 
 
                 }
+            }
+        });
+
+    }
+
+    public void submit_order_to_db(){
+
+        //get latest again
+        firestore.collection("cartItems").document(auth.getCurrentUser().getUid()).collection("Mycart").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    Log.e("Firestore error", error.getMessage());
+                    return;
+                }
+
+                addToOrderItems(value);
+                Toast.makeText(getApplicationContext(),"Payment Success!",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext() , MyOrdersActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -197,6 +262,50 @@ public class PaymentActivity extends AppCompatActivity {
 
     }
 
+    public static String getTimeDate(long timestamp){
+        try{
+            Date netDate = (new Date(timestamp));
+            SimpleDateFormat sfd = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
+            return sfd.format(netDate);
+        } catch(Exception e) {
+            return "date";
+        }
+    }
+
+    public void deleteFromCart(){
+        //delete MyCart collection
+
+        //delete user ui document
+    }
+
+    public void addToOrderItems(@Nullable QuerySnapshot value) {
+
+        Timestamp order_dt = new Timestamp(new Date());
+
+        SimpleDateFormat sfd = new SimpleDateFormat("yyyyMMddHHmmss");
+        String firestore_timestamp = sfd.format(order_dt.toDate());
+
+        Map<String, Object> orderReceipt = new HashMap<>();
+        orderReceipt.put("overalltotalprice", OverallTotalPrice);
+        orderReceipt.put("paylah_phone", et_paylah_phone.getText().toString());
+        orderReceipt.put("creditcard_name", et_creditcard_name.getText().toString());
+        orderReceipt.put("creditcard_number", et_creditcard_number.getText().toString());
+        orderReceipt.put("creditcard_security", et_creditcard_security.getText().toString());
+        orderReceipt.put("dateordered", order_dt);
+
+        //firestore.collection("orderItems").document(auth.getCurrentUser().getUid()).collection("receipts").add(orderReceipt);
+
+        firestore.collection("orderItems").document(auth.getCurrentUser().getUid()).collection("receipts").document(firestore_timestamp).set(orderReceipt);
+
+        for(DocumentSnapshot doc : value.getDocuments()){
+            firestore.collection("orderItems").document(auth.getCurrentUser().getUid()).collection("receipts").document(firestore_timestamp).collection("Mycart").add(doc.getData());
+        }
+
+        for(DocumentSnapshot doc : value.getDocuments()){
+            firestore.collection("cartItems").document(auth.getCurrentUser().getUid()).collection("Mycart").document(doc.getId()).delete();
+        }
+    }
+
     private void initializePaymentPage() {
         //logic to see if there is any cartitem
 
@@ -209,13 +318,11 @@ public class PaymentActivity extends AppCompatActivity {
         tv_payment_total_cost_value.setText(String.format("%.2f",OverallTotalPrice));
     }
 
-    // Set phone number
 
 
     public void updateCart(){
         firestore.collection("cartItems").document(auth.getCurrentUser().getUid()).delete();
     }
-    //Set Credi Card
     double RoundTo2Decimals(double val) {
 //        DecimalFormat df2 = new DecimalFormat("###.##");
 //        return Double.valueOf(df2.format(val));

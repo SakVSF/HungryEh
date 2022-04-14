@@ -60,7 +60,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
             super(itemView);
             dishName = itemView.findViewById(R.id.dishname);
             foodImg = itemView.findViewById(R.id.imagecart);
-            delete = itemView.findViewById(R.id.delete);
+
 
 
         }

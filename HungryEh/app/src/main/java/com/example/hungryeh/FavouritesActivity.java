@@ -44,7 +44,7 @@ public class FavouritesActivity extends AppCompatActivity {
             firestore = FirebaseFirestore.getInstance();
             auth = FirebaseAuth.getInstance();
             favItem = new ArrayList<FavouriteItem>();
-            favouriteAdapter = new FavouriteAdapter(com.example.hungryeh.FavouritesActivity.this, favItem);
+            favouriteAdapter = new FavouriteAdapter(FavouritesActivity.this, favItem);
 
             recyclerView.setAdapter(favouriteAdapter);
             EventChangeListener();
@@ -52,7 +52,7 @@ public class FavouritesActivity extends AppCompatActivity {
             gotohome.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(com.example.hungryeh.FavouritesActivity.this, HomePageActivity.class));
+                    startActivity(new Intent(FavouritesActivity.this, HomePageActivity.class));
                 }
             });
         }

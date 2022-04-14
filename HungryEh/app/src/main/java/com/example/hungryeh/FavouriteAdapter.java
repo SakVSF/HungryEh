@@ -53,14 +53,14 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.Favo
         TextView dishName;
 
         ImageView foodImg;
-        ImageButton delete;
+
 
 
         public FavouriteViewHolder(@NonNull View itemView) {
             super(itemView);
             dishName = itemView.findViewById(R.id.dishname);
             foodImg = itemView.findViewById(R.id.imagecart);
-            delete = itemView.findViewById(R.id.delete);
+
 
 
         }

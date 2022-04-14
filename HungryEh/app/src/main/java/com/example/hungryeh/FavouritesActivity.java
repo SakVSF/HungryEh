@@ -57,6 +57,25 @@ public class FavouritesActivity extends AppCompatActivity {
             });
         }
 
+
+        private void getFavouritesDetails() {
+            firestore.collection("favItems").document(auth.getCurrentUser().getUid()).collection("Favourites").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                @Override
+                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                    if (error != null) {
+                        Log.e("Firestore error", error.getMessage());
+                        return;
+                    }
+                    for (DocumentChange dc : value.getDocumentChanges()) {
+                        if (dc.getType() == DocumentChange.Type.ADDED) {
+                            favItem.add(dc.getDocument().toObject(FavouriteItem.class));
+                        }
+                    }
+
+                }
+            });
+
+        }
         private void EventChangeListener() {
             firestore.collection("favItems").document(auth.getCurrentUser().getUid()).collection("Favourites").addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override

@@ -235,7 +235,7 @@ public class PaymentActivity extends AppCompatActivity {
 
                 addToOrderItems(value);
                 Toast.makeText(getApplicationContext(),"Payment Success!",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext() , MyOrdersActivity.class);
+                Intent intent = new Intent(getApplicationContext() , HomePageActivity.class);
                 startActivity(intent);
             }
         });

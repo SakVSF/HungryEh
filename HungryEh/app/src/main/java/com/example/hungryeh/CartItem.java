@@ -1,6 +1,7 @@
 package com.example.hungryeh;
 
 public class CartItem {
+    //define the cartitem class with all the attributes needed to be displayed in the cardview of the recyclerview
         String dishName;
         String img;
         int quantity;

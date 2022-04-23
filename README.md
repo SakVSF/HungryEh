@@ -7,8 +7,13 @@ We are Team 2G from CI02.
 
 Our team members are:
 1005398	Rohit Raghuram Murarishetti
+
 1005380	Saakshi Vinod Saraf
+
 1005762	Aishwarya D/O RM Palaniappan
+
 1005622	Parwani Jayati
+
 1005284	Ishan Monnappa Kodira
+
 1005433	Baarath S/O Sellathurai

@@ -151,27 +151,6 @@ public class PaymentActivity extends AppCompatActivity {
         });
 
 
-//        linearLayout_paylah.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (hasFocus) {
-//                    if (et_paylah_phone.getText().toString().trim().length() < 5) {
-//                        et_paylah_phone.setError("Failed");
-//                    } else {
-//                        // your code here
-//                        et_paylah_phone.setError(null);
-//                    }
-//                } else {
-//                    if (et_billamt.getText().toString().trim().length() < 5) {
-//                        et_billamt.setError("Failed");
-//                    } else {
-//                        // your code here
-//                        et_billamt.setError(null);
-//                    }
-//                }
-//
-//            }
-//        });
 
         btn_payment_order.setOnClickListener(new View.OnClickListener() {
             @Override

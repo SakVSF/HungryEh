@@ -44,16 +44,6 @@ public class stall_item_page_activity extends AppCompatActivity implements OnDat
 
     }
 
-//    ActivityResultLauncher<Intent> activityLauncher = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(),
-//            new ActivityResultCallback<ActivityResult>() {
-//                @Override
-//                public void onActivityResult(ActivityResult result) {
-//                    if(result.getResultCode(70))
-//
-//                }
-//            }
-//    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

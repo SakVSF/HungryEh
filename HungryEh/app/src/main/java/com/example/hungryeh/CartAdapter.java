@@ -22,8 +22,8 @@ import java.util.ArrayList;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
-    Context context;
-    ArrayList<CartItem> cartItem;
+    Context context; //the context(activity) where the recyclerview must be placed
+    ArrayList<CartItem> cartItem; //list of items that need to be put into cards in the cart
 
 
     public CartAdapter(Context context, ArrayList<CartItem> cartItem) {
@@ -34,7 +34,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @NonNull
     @Override
     public CartAdapter.CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.cartitems, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.cartitems, parent, false); //creating a cardview for each cartitem
         return new CartViewHolder(v).linkAdapter(this);
     }
 
@@ -56,6 +56,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     }
 
+    //defining how each cartitem will be bound to the cardview
     public static class CartViewHolder extends RecyclerView.ViewHolder{
         TextView quantity;
         TextView totalPrice;
@@ -70,6 +71,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
+            //binding all the properties from the cartitem to the viewholder adapter
             dishName = itemView.findViewById(R.id.dishname);
             quantity = itemView.findViewById(R.id.cartquantity);
             totalPrice = itemView.findViewById(R.id.totalprice);

@@ -48,6 +48,7 @@ import java.util.Map;
 
 public class PaymentActivity extends AppCompatActivity {
 
+    //Variable and fields declaration
     FirebaseFirestore firestore;
     FirebaseAuth auth;
     ArrayList<CartItem> cartItem;
@@ -75,8 +76,11 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
+        // Firestore initialization
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
+
+        // Variable and fields initialization
         cartItem = new ArrayList<CartItem>();
 
         tv_payment_total_cost = findViewById(R.id.tv_payment_total_cost);
@@ -100,6 +104,7 @@ public class PaymentActivity extends AppCompatActivity {
         //Retrieve Database
         getCartDetails();
 
+        // get cartItem details, to calculate total price
         firestore.collection("cartItems").document(auth.getCurrentUser().getUid()).collection("Mycart").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -118,7 +123,7 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
 
-
+        // based on radiobutton selection display correct fields
         rbg_pay_mode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
         {
             @Override
@@ -151,7 +156,7 @@ public class PaymentActivity extends AppCompatActivity {
         });
 
 
-
+        // radiobutton validation
         btn_payment_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -201,6 +206,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     }
 
+    // get latest cartitem details and add to order firestore document
     public void submit_order_to_db(){
 
         //get latest again
@@ -221,6 +227,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     }
 
+    // get latest cartitem details and Initialize payment page with total price to pay
     private void getCartDetails(){
         firestore.collection("cartItems").document(auth.getCurrentUser().getUid()).collection("Mycart").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -241,22 +248,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     }
 
-    public static String getTimeDate(long timestamp){
-        try{
-            Date netDate = (new Date(timestamp));
-            SimpleDateFormat sfd = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
-            return sfd.format(netDate);
-        } catch(Exception e) {
-            return "date";
-        }
-    }
-
-    public void deleteFromCart(){
-        //delete MyCart collection
-
-        //delete user ui document
-    }
-
+    // get field item values and insert into OrderItem firstore document and delete from cartItems
     public void addToOrderItems(@Nullable QuerySnapshot value) {
 
         Timestamp order_dt = new Timestamp(new Date());
@@ -272,8 +264,6 @@ public class PaymentActivity extends AppCompatActivity {
         orderReceipt.put("creditcard_security", et_creditcard_security.getText().toString());
         orderReceipt.put("dateordered", order_dt);
 
-        //firestore.collection("orderItems").document(auth.getCurrentUser().getUid()).collection("receipts").add(orderReceipt);
-
         firestore.collection("orderItems").document(auth.getCurrentUser().getUid()).collection("receipts").document(firestore_timestamp).set(orderReceipt);
 
         for(DocumentSnapshot doc : value.getDocuments()){
@@ -285,6 +275,7 @@ public class PaymentActivity extends AppCompatActivity {
         }
     }
 
+    // calculate price to pay vased on items on cart format dollar value
     private void initializePaymentPage() {
         //logic to see if there is any cartitem
 
@@ -298,13 +289,13 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
 
-
+    //delete cart items
     public void updateCart(){
         firestore.collection("cartItems").document(auth.getCurrentUser().getUid()).delete();
     }
+
+    //format dollar value
     double RoundTo2Decimals(double val) {
-//        DecimalFormat df2 = new DecimalFormat("###.##");
-//        return Double.valueOf(df2.format(val));
         return Math.round(val*100.0)/100.0;
     }
 

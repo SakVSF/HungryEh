@@ -51,13 +51,14 @@ public class stall_item_page_activity extends AppCompatActivity implements OnDat
         setContentView(R.layout.items_food_page);
         Intent intent = getIntent();
 
-        //firebase
+        //firebase initialization
         firestore = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
 
         //initialize shared pref
         initalizeIntent();
 
+        //Ui fields initialization
         TextView txtvw_foodpage_dish = findViewById(R.id.foodpage_dish);
         TextView txtvw_foodpage_stall = findViewById(R.id.foodpage_stall);
         TextView txtvw_foodpage_price= findViewById(R.id.cost);
@@ -72,21 +73,11 @@ public class stall_item_page_activity extends AppCompatActivity implements OnDat
         txtvw_realprice = this.myStall.pricen;
         ll_preorder_time_linear_layout = findViewById(R.id.preorder_time_linear_layout);
 
-
-/*
-        stall stall = intent.getParcelableExtra("stall");
-        String imageRes=stall.getImg();
-        ImageView imageView=findViewById(R.id.imagein);
-        imageview.image.setimageResource(imageRes)
-        Glide.with(getApplicationContext()).load(stall.getImg()).into(imageView);
-*/
         ImageView img_foodpage_image=findViewById(R.id.imagein);
         Glide.with(stall_item_page_activity.this)
                 .load(this.myStall.img)
                 .centerCrop()
                 .into(img_foodpage_image);
-
-
 
         txtvw_foodpage_dish.setText(this.myStall.dishName);
         txtvw_foodpage_stall.setText(this.myStall.stallName);
@@ -94,6 +85,7 @@ public class stall_item_page_activity extends AppCompatActivity implements OnDat
         txtvw_foodpage_allergens.setText(this.myStall.allergens);
         txtvw_foodpage_veg.setText(this.myStall.veg);
 
+        // addToFav button
         txtvw_addtofav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,7 +93,7 @@ public class stall_item_page_activity extends AppCompatActivity implements OnDat
             }
         });
 
-
+        // Check if Time is selected
         txtvw_addtocart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,6 +106,7 @@ public class stall_item_page_activity extends AppCompatActivity implements OnDat
             }
         });
 
+        // Check if quantiy is valid
         txtvw_increasequantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,6 +117,7 @@ public class stall_item_page_activity extends AppCompatActivity implements OnDat
             }
         });
 
+        // Check if quantiy is valid
         txtvw_decreasequantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,9 +128,7 @@ public class stall_item_page_activity extends AppCompatActivity implements OnDat
             }
         });
 
-
-        //old: txtvw_schedule_selection
-        //new: ll_preorder_time_linear_layout
+        // Check if quantiy is valid
         ll_preorder_time_linear_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,6 +138,7 @@ public class stall_item_page_activity extends AppCompatActivity implements OnDat
         }
         );
 
+        // Open Timeslot Schedule Dialog pop up
         txtvw_schedule_selection.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View view) {
@@ -160,6 +153,7 @@ public class stall_item_page_activity extends AppCompatActivity implements OnDat
 
     }
 
+    // Add to fav
     private void addtoFav() {
         final HashMap<String, Object> favMap = new HashMap<>();
         favMap.put("dishName",this.myStall.dishName);
@@ -174,6 +168,7 @@ public class stall_item_page_activity extends AppCompatActivity implements OnDat
             }
         });
     }
+    // Add to cart
     private void addToCart() {
         final HashMap<String, Object> cartMap = new HashMap<>();
         cartMap.put("dishName",this.myStall.dishName);
@@ -192,11 +187,15 @@ public class stall_item_page_activity extends AppCompatActivity implements OnDat
             });
     }
 
+    //check if paracable object exist, if so cache it & display it, else retrieve from cache
     private void initalizeIntent() {
+        // Check if existing data object is in cache
         SharedPreferences sharedPreferences = getSharedPreferences("myStall", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        // Check if intent has data
         Intent intent = getIntent();
         stall myStall_data = intent.getParcelableExtra("myStall_data");
+        // If intent has data, then store into cache
         if( myStall_data != null ) {
             this.myStall = myStall_data;
             Gson gson = new Gson();
@@ -204,25 +203,24 @@ public class stall_item_page_activity extends AppCompatActivity implements OnDat
             editor.putString("strobj_myStall",strobj_myStall);
             editor.apply();
         }
+        // If intent does not have data, then retrieve data from cache
         else {
-            //SharedPreferences sharedPreferences = getSharedPreferences("strobj_myStall", MODE_PRIVATE);
             Gson gson = new Gson();
             String json = sharedPreferences.getString("strobj_myStall",null);
             Type type = new TypeToken<stall>() {}.getType();
             if (json != null & json != "" )
             {
-                //this.myStall = gson.fromJson(json, type);
                 stall newStall = gson.fromJson(json, type);
                 this.myStall = newStall;
             }
         }
+
+        // Get timeslotselection intent from dialog
         String str_TimeslotSelection_value = intent.getStringExtra("str_TimeslotSelection");
         if( str_TimeslotSelection_value != null & str_TimeslotSelection_value != ""){
             this.str_TimeslotSelection = str_TimeslotSelection_value;
-//            this.mySharedPreferences.edit().putString("str_TimeslotSelection",str_TimeslotSelection_value).apply();
             txtvw_schedule_selection = findViewById(R.id.schedule_selection);
             txtvw_schedule_selection.setText(str_TimeslotSelection);
-            //Toast.makeText(this, "testing - " + str_TimeslotSelection, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -238,6 +236,7 @@ public class stall_item_page_activity extends AppCompatActivity implements OnDat
         timeslotDialog.show(getSupportFragmentManager(),"Timeslot Dialog");
     }
 
+    // Get timeslotselection data from dialog using onDataPass Interface
     @Override
     public void onDataPass(String data) {
         String str_TimeslotSelection_value = data;

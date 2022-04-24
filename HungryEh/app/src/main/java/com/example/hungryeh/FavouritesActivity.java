@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class FavouritesActivity extends AppCompatActivity {
 
-
+        //activity associated with the favourites page 
         RecyclerView recyclerView;
         ArrayList<FavouriteItem> favItem;
         FavouriteAdapter favouriteAdapter;
@@ -33,9 +33,9 @@ public class FavouritesActivity extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_favourites);
+            setContentView(R.layout.activity_favourites);  
 
-            recyclerView = findViewById(R.id.favlist);
+            recyclerView = findViewById(R.id.favlist);         //setting recycler view for favourites page 
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -46,13 +46,14 @@ public class FavouritesActivity extends AppCompatActivity {
             favItem = new ArrayList<FavouriteItem>();
             favouriteAdapter = new FavouriteAdapter(com.example.hungryeh.FavouritesActivity.this, favItem);
 
-            recyclerView.setAdapter(favouriteAdapter);
-            EventChangeListener();
+            recyclerView.setAdapter(favouriteAdapter);    //setting favouriteAdapter for recycler view 
+            EventChangeListener();  //listens for any event
 
             gotohome.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(com.example.hungryeh.FavouritesActivity.this, HomePageActivity.class));
+                    //going to HomePage on clicking the gotohome button
                 }
             });
         }
@@ -66,7 +67,7 @@ public class FavouritesActivity extends AppCompatActivity {
                         Log.e("Firestore error", error.getMessage());
                         return;
                     }
-                    for (DocumentChange dc : value.getDocumentChanges()) {
+                    for (DocumentChange dc : value.getDocumentChanges()) {     //add favouriteitem to firestore under "Favourites" collection
                         if (dc.getType() == DocumentChange.Type.ADDED) {
                             favItem.add(dc.getDocument().toObject(FavouriteItem.class));
                         }
@@ -86,9 +87,10 @@ public class FavouritesActivity extends AppCompatActivity {
                     }
                     for(DocumentChange dc: value.getDocumentChanges()){
                         if (dc.getType() == DocumentChange.Type.ADDED){
-                            favItem.add(dc.getDocument().toObject(FavouriteItem.class));
+                            favItem.add(dc.getDocument().toObject(FavouriteItem.class)); //adding items to arraylist whenever items are added into favourites database
+
                         }
-                        favouriteAdapter.notifyDataSetChanged();
+                        favouriteAdapter.notifyDataSetChanged();  //notify adaptor whenever any item is added to favourites so that necessary updates can be made
                     }
 
 

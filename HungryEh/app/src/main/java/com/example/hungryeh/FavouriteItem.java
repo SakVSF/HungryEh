@@ -1,6 +1,7 @@
 package com.example.hungryeh;
 
 public class FavouriteItem {
+     //define the favouriteitem class with all the attributes needed to be displayed in the cardview of the recyclerview
     String dishName;
     String img;
 

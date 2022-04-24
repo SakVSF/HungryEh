@@ -27,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class RegisterActivity extends AppCompatActivity {
+    //activity associated with Register Page
     private Button register;
     private EditText name;
     private FirebaseAuth mAuth;
@@ -44,13 +45,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth= FirebaseAuth.getInstance();
 
-
-        /*if(mAuth.getCurrentUser()!=null){
-            finish();
-            startActivity(new Intent(getApplication(),HomePageActivity.class));
-        }*/
-
-
         databaseReference =  FirebaseDatabase.getInstance().getReference();
 
         register = (Button)findViewById(R.id.button_register);
@@ -58,21 +52,25 @@ public class RegisterActivity extends AppCompatActivity {
         password = (EditText)findViewById(R.id.et_password);
         repassword = (EditText) findViewById(R.id.et_repassword);
         already_Reg = (TextView) findViewById(R.id.tv_alreadyReg);
+
+
         already_Reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
                 startActivity(new Intent(getApplication(),LoginActivity.class));
+                //go to login page if the user clicks on "ALready Registered?"
             }
         });
+
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAccount();
+                createAccount();              //if the user clicks "register" button
 
             }
         });
-        //pd = new ProgressDialog(this);
+        
     }
     private void createAccount(){
 
@@ -83,44 +81,47 @@ public class RegisterActivity extends AppCompatActivity {
         if(TextUtils.isEmpty(E_mail))
         {
             Toast.makeText(this,"Enter Email",Toast.LENGTH_SHORT).show();
-            //finish();
-            //startActivity(new Intent(getApplication(),Dashboard.class));
+            //displays toast if user enters empty email
             return;
         }
         if(TextUtils.isEmpty(P_assword))
         {
             Toast.makeText(this,"Enter password",Toast.LENGTH_SHORT).show();
+            //displays toast if user enters empty password
             return;
         }
         if(P_assword.length()<6){
             Toast.makeText(this,"Password must be minimum 6 characters",Toast.LENGTH_SHORT).show();
+            //displays toast if password length is less than 6 characters
         }
         if(TextUtils.isEmpty(Re_password))
         {
             Toast.makeText(this,"Enter Re-password",Toast.LENGTH_SHORT).show();
+            //displays toast if user enters empty repassword
             return;
         }
         if(!P_assword.equals(Re_password))
         {
             Toast.makeText(this,"Password Does Not Match",Toast.LENGTH_SHORT).show();
-            //finish();
-            //startActivity(new Intent(getApplication(),Dashboard.class));
+            //displays toast if password is not equal to repassword
+            
             return;
         }
 
         mAuth.createUserWithEmailAndPassword(E_mail,P_assword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 
-
+                //use the firebase createUserWithEmailandPassword function to register account
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
                             Toast.makeText(RegisterActivity.this,"Register Success",Toast.LENGTH_SHORT).show();
-                            // startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            //if registration is successful
+
                         }else {
                             Toast.makeText(RegisterActivity.this,"Register Failure",Toast.LENGTH_SHORT).show();
+                            //if registration is unsuccessful
                         }
                     }
 

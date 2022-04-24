@@ -26,9 +26,9 @@
         <entry key="app/src/main/res/layout/activity_allstalls.xml" value="0.125" />
         <entry key="app/src/main/res/layout/activity_cart.xml" value="0.1015625" />
         <entry key="app/src/main/res/layout/activity_favourites.xml" value="0.1015625" />
-        <entry key="app/src/main/res/layout/activity_homepage.xml" value="0.1015625" />
+        <entry key="app/src/main/res/layout/activity_homepage.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1015625" />
-        <entry key="app/src/main/res/layout/activity_logout.xml" value="0.1015625" />
+        <entry key="app/src/main/res/layout/activity_logout.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1015625" />
         <entry key="app/src/main/res/layout/activity_myorders.xml" value="0.1015625" />
         <entry key="app/src/main/res/layout/activity_payment.xml" value="0.25" />

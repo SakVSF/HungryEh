@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LogoutActivity extends AppCompatActivity {
-
+    //activity associated with logout page
     private Button logoutyes;
     private Button logoutno;
     @Override
@@ -24,9 +24,10 @@ public class LogoutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(v==logoutyes){
-                    FirebaseAuth.getInstance().signOut();
+                    FirebaseAuth.getInstance().signOut();       //activate firebase.signout() if "yes" button is pressed
                     finish();
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    //goes to opening page of app 
                 }
 
             }
@@ -38,6 +39,7 @@ public class LogoutActivity extends AppCompatActivity {
                 if(v==logoutno){
                     finish();
                     startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+                    //goes back to Homepage if "no" button is pressed
                 }
 
             }

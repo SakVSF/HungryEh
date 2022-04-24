@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
+    //activity associated with the login page
     private Button login;
     private EditText email;
     private EditText password;
@@ -41,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(v == login)
                 {
-                    signIn();
+                    signIn();                       //when the "login" button is clicked
                 }
             }
         });
@@ -49,24 +50,25 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(v==textViewLogin) {
-                    finish();
+                    finish();                       // when the "Not Registered? Register here" textview is clicked
                     startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                    //starts intent to go to RegisterActivity
                 }
             }
         });
     }
     private void signIn(){
-        String U_sername = email.getText().toString().trim();
+        String U_sername = email.getText().toString().trim();    //fetches email and password from the editTexts on Login Page
         String P_assword = password.getText().toString().trim();
 
-        if(TextUtils.isEmpty(U_sername))
+        if(TextUtils.isEmpty(U_sername))                
         {
-            Toast.makeText(this,"Enter Username",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Enter Username",Toast.LENGTH_SHORT).show();   //displays error if user enters empty username
             return;
         }
         if(TextUtils.isEmpty(P_assword))
         {
-            Toast.makeText(this,"Enter Password",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Enter Password",Toast.LENGTH_SHORT).show();   //displays error if user enters empty password
             return;
         }
 
@@ -75,14 +77,17 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
+                        //use firebase authentication to authenticate the entered email and password
+
                         if (task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                             finish();
                             startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
                             FirebaseUser user = firebaseAuth.getCurrentUser();
-                            /*updateUI(user); */
+                            //if login successful, goes to Homepage
                         } else {
                             Toast.makeText(LoginActivity.this, "Login Failure", Toast.LENGTH_SHORT).show();
+                            //displays toast if login unsuccessful
                         }
 
                     }});

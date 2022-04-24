@@ -44,8 +44,6 @@ public class TimeslotDialog extends AppCompatDialogFragment {
     public String time_formatted;
     OnDataPass dataPasser;
 
-
-    //V2
     TextView time_view_msg;
     final String node = "current_msg";
     DatabaseReference mRootDatabaseRef;
@@ -57,6 +55,7 @@ public class TimeslotDialog extends AppCompatDialogFragment {
 
     }
 
+    //pass data to parent activity
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -75,7 +74,7 @@ public class TimeslotDialog extends AppCompatDialogFragment {
         view = inflater.inflate(R.layout.activity_timeslot_dialog, null);
         builder.setView(view);
 
-        //V2
+        //Get time from firebase
         time_view_msg = view.findViewById(R.id.timeviewmsg);
         mRootDatabaseRef = FirebaseDatabase.getInstance().getReference();
         mNodeRef = mRootDatabaseRef.child(node);
@@ -152,12 +151,6 @@ public class TimeslotDialog extends AppCompatDialogFragment {
                 btn_button_confirmTimeslot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // str_TimeslotSelection
-//                        Intent intent = new Intent(view.getContext() , stall_item_page_activity.class);
-//                        intent.putExtra("str_TimeslotSelection",str_TimeslotSelection);
-                        //stall_item_page_activity
-                        //startActivity(intent);
-                        //((stall_item_page_activity)getActivity()).setT("test");
                         passData(str_TimeslotSelection);
                         dismiss();
                     }
